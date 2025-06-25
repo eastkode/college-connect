@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Class 12th Scholarships & Offers - {{ lead.name }}{% endblock %}
+
+{% block head_extra %}
+<style>
+.offers-container { /* Reusing class10 style name for consistency */
+    padding: 20px;
+}
+.offer-category { /* Reusing class10 style name */
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.offer-category h2 {
+    color: #5a67d8; /* Primary color */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+.offer-item { /* Reusing class10 style name */
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+.offer-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+.offer-item p {
+    font-size: 0.95rem;
+    color: #555;
+}
+.scholarship-details {
+    font-size: 0.9rem;
+    color: #666;
+}
+.scholarship-details strong {
+    color: #333;
+}
+.referral-section { /* Reusing class10 style name */
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #e6f7ff; /* Light blue for emphasis */
+    border: 1px solid #b3e0ff;
+    border-radius: 8px;
+    text-align: center;
+}
+.referral-section h2 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+.referral-link { /* Reusing class10 style name */
+    font-weight: bold;
+    color: #0056b3;
+    background-color: #fff;
+    padding: 8px 15px;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px dashed #007bff;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="offers-container">
+    <h1>Scholarships & Offers for {{ lead.name }} (Class 12th)</h1>
+    <p>Based on your score of <strong>{{ lead.percentage }}%</strong>, explore these exciting opportunities!</p>
+
+    <div class="offer-category">
+        <h2>College Scholarships</h2>
+        {% if lead.percentage >= 95 %}
+            <div class="offer-item">
+                <h3>"Top Tier University" Merit Scholarship</h3>
+                <p>Full tuition waiver for selected STEM programs. Your outstanding score makes you eligible to apply!</p>
+                <p class="scholarship-details"><strong>Eligibility:</strong> 95%+, STEM stream. <strong>Application Deadline:</strong> July 31st</p>
+            </div>
+        {% elif lead.percentage >= 85 %}
+            <div class="offer-item">
+                <h3>"City Central College" Excellence Grant</h3>
+                <p>50% scholarship on first-year fees for Commerce and Arts programs.</p>
+                <p class="scholarship-details"><strong>Eligibility:</strong> 85%+, any stream. <strong>Application Deadline:</strong> Aug 15th</p>
+            </div>
+        {% elif lead.percentage >= 70 %}
+            <div class="offer-item">
+                <h3>"Regional Institute of Technology" Achiever's Bursary</h3>
+                <p>₹25,000 grant towards any engineering program.</p>
+                <p class="scholarship-details"><strong>Eligibility:</strong> 70%+, Science stream. <strong>Application Deadline:</strong> Aug 30th</p>
+            </div>
+        {% else %}
+            <div class="offer-item">
+                <p>Many colleges offer scholarships. We recommend checking their individual websites based on your interests. Some general scholarships might be available for scores above 60%.</p>
+            </div>
+        {% endif %}
+         <div class="offer-item">
+            <h3>"National Arts College" Creative Minds Scholarship</h3>
+            <p>Variable scholarship amounts for students pursuing Fine Arts, Design, or Performing Arts. Portfolio required.</p>
+            <p class="scholarship-details"><strong>Eligibility:</strong> 60%+, relevant stream/portfolio. <strong>Application Deadline:</strong> Continuous</p>
+        </div>
+    </div>
+
+    <div class="offer-category">
+        <h2>Local Offers & Freebies</h2>
+        <div class="offer-item">
+            <h3>"Tech Gadgets Store" Student Deal</h3>
+            <p>10% off on laptops and tablets for Class 12th graduates.</p>
+        </div>
+        <div class="offer-item">
+            <h3>"Global Travels" Student Package</h3>
+            <p>Special discounts on educational tours and travel packages.</p>
+        </div>
+        {% if lead.percentage >= 80 %}
+            <div class="offer-item">
+                <h3>"Future Leaders" Workshop</h3>
+                <p>Free entry to a 2-day workshop on career planning and skill development. (Details will be emailed to {{ lead.email }})</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="offer-category">
+        <h2>Free Goodies</h2>
+        {% if lead.percentage >= 92 %}
+            <div class="offer-item">
+                <h3>University Starter Pack!</h3>
+                <p>Congratulations! You get a free "Uni Essentials Kit" including a high-quality backpack, a digital note-taker, and a subscription to an online learning platform. (Details on redemption will be sent to your email: {{ lead.email }})</p>
+            </div>
+        {% elif lead.percentage >= 78 %}
+            <div class="offer-item">
+                <h3>Academic Excellence Goodie Box</h3>
+                <p>You've earned a special goodie box with advanced study aids and a gift voucher for an online bookstore! (Details on redemption will be sent to your email: {{ lead.email }})</p>
+            </div>
+        {% else %}
+            <div class="offer-item">
+                <p>Stay tuned for exclusive offers and freebies for Class 12th students. Check your email regularly!</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="referral-section">
+        <h2>Share & Earn!</h2>
+        <p>Share your unique referral link with friends. If they sign up, you get a ₹150 gift card!</p>
+        <p>Your referral link: <span class="referral-link">{{ url_for('homepage', ref=lead.referral_code, _external=True) }}</span></p>
+        <p>(Note: Referral tracking and gift card system is under development. This is a placeholder.)</p>
+    </div>
+
+</div>
+{% endblock %}

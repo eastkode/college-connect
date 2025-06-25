@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Homepage - Student Leads{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h1>Welcome to the Student Leads Platform</h1>
+    <p>Find opportunities tailored for you. Fill out the form below to get started!</p>
+
+    <form action="{{ url_for('submit_lead') }}" method="POST" class="lead-form">
+        <div class="form-group">
+            <label for="student_name">Student Name</label>
+            <input type="text" id="student_name" name="student_name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="tel" id="phone_number" name="phone_number" required>
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required>
+        </div>
+        <div class="form-group">
+            <label for="class_selected">Class</label>
+            <select id="class_selected" name="class_selected" required>
+                <option value="" disabled selected>Select Class</option>
+                <option value="10">10th</option>
+                <option value="12">12th</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="percentage">Percentage Scored (%)</label>
+            <input type="number" id="percentage" name="percentage" min="0" max="100" step="0.01" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<section class="info-section">
+    <h2>Why Choose Us?</h2>
+    <p>We connect students with colleges, scholarships, and offers to help them succeed.</p>
+    {# More content can be added here #}
+</section>
+{% endblock %}
+
+{% block head_extra %}
+<style>
+.hero-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #e9ecef; /* Light grey, modern feel */
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #343a40; /* Darker grey for text */
+}
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #495057; /* Slightly lighter grey */
+}
+.info-section {
+    padding: 20px;
+    text-align: center;
+}
+</style>
+{% endblock %}

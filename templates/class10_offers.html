@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Class 10th Offers - {{ lead.name }}{% endblock %}
+
+{% block head_extra %}
+<style>
+.offers-container {
+    padding: 20px;
+}
+.offer-category {
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.offer-category h2 {
+    color: #5a67d8; /* Primary color */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+.offer-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+.offer-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+.offer-item p {
+    font-size: 0.95rem;
+    color: #555;
+}
+.referral-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #e6f7ff; /* Light blue for emphasis */
+    border: 1px solid #b3e0ff;
+    border-radius: 8px;
+    text-align: center;
+}
+.referral-section h2 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+.referral-link {
+    font-weight: bold;
+    color: #0056b3;
+    background-color: #fff;
+    padding: 8px 15px;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px dashed #007bff;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="offers-container">
+    <h1>Special Offers for {{ lead.name }} (Class 10th)</h1>
+    <p>Based on your score of <strong>{{ lead.percentage }}%</strong>, here are some opportunities for you!</p>
+
+    <div class="offer-category">
+        <h2>Coaching Center Discounts</h2>
+        {% if lead.percentage >= 80 %}
+            <div class="offer-item">
+                <h3>Elite Coaching Hub</h3>
+                <p>Get 25% off on all competitive exam courses. Your score qualifies you!</p>
+            </div>
+        {% elif lead.percentage >= 60 %}
+            <div class="offer-item">
+                <h3>Bright Sparks Tutors</h3>
+                <p>15% discount on foundation courses for Class 11th.</p>
+            </div>
+        {% else %}
+            <div class="offer-item">
+                <p>Explore various coaching centers for foundational courses. Some may have general early bird discounts.</p>
+            </div>
+        {% endif %}
+        <div class="offer-item">
+            <h3>Future Achievers Academy</h3>
+            <p>Flat 10% off for all new admissions.</p>
+        </div>
+    </div>
+
+    <div class="offer-category">
+        <h2>Local Shops & Hotel Offers</h2>
+        <div class="offer-item">
+            <h3>"The Bookworm" Bookstore</h3>
+            <p>15% off on all academic books for Class 10th graduates.</p>
+        </div>
+        <div class="offer-item">
+            <h3>"Quick Bites" Cafe</h3>
+            <p>Free beverage with any meal for students.</p>
+        </div>
+        <div class="offer-item">
+            <h3>"City Central Hotel" (for parents visiting)</h3>
+            <p>Special 10% discount on stay if you mention your child's recent Class 10th achievement.</p>
+        </div>
+    </div>
+
+    <div class="offer-category">
+        <h2>Free Goodies</h2>
+        {% if lead.percentage >= 90 %}
+            <div class="offer-item">
+                <h3>High Achiever Pack!</h3>
+                <p>Congratulations! You get a free "Success Kit" including a planner, premium pens, and a motivational book. (Details on redemption will be sent to your email: {{ lead.email }})</p>
+            </div>
+        {% elif lead.percentage >= 75 %}
+            <div class="offer-item">
+                <h3>Merit Goodie Bag</h3>
+                <p>You've earned a special goodie bag with useful stationery! (Details on redemption will be sent to your email: {{ lead.email }})</p>
+            </div>
+        {% else %}
+            <div class="offer-item">
+                <p>Keep an eye on your email for surprise goodies and contest announcements!</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="referral-section">
+        <h2>Share & Earn!</h2>
+        <p>Share your unique referral link with friends. If they sign up, you get a ₹150 gift card!</p>
+        <p>Your referral link: <span class="referral-link">{{ url_for('homepage', ref=lead.referral_code, _external=True) }}</span></p>
+        <p>(Note: Referral tracking and gift card system is under development. This is a placeholder.)</p>
+    </div>
+
+</div>
+{% endblock %}

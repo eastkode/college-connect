@@ -1,0 +1,6 @@
+Flask>=2.0
+python-dotenv>=0.19
+Flask-SQLAlchemy>=2.5
+SQLAlchemy>=1.4 # Explicitly adding as Flask-SQLAlchemy depends on it
+Flask-Migrate>=3.0 # For database migrations
+Werkzeug>=2.0 # For password hashing (already a Flask dep, but good to be explicit for features)

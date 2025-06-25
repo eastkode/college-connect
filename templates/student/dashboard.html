@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard - {{ student.name }}{% endblock %}
+
+{% block head_extra %}
+<style>
+.dashboard-container {
+    padding: 20px;
+}
+.dashboard-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+.dashboard-header h1 {
+    color: #333;
+}
+.dashboard-section {
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.dashboard-section h2 {
+    color: #5a67d8; /* Primary color */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+.info-item {
+    margin-bottom: 10px;
+}
+.info-item strong {
+    display: inline-block;
+    width: 180px; /* Adjust as needed */
+}
+.referral-link-display {
+    font-weight: bold;
+    color: #0056b3;
+    background-color: #fff;
+    padding: 8px 15px;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px dashed #007bff;
+    word-break: break-all;
+}
+.placeholder-text {
+    color: #777;
+    font-style: italic;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Welcome to your Dashboard, {{ student.name }}!</h1>
+        <p>Here you can track your opportunities and referrals.</p>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>My Profile</h2>
+        <div class="info-item"><strong>Name:</strong> {{ student.name }}</div>
+        <div class="info-item"><strong>Email:</strong> {{ student.email }}</div>
+        <div class="info-item"><strong>Class:</strong> {{ student.class_selected }}th</div>
+        <div class="info-item"><strong>Percentage:</strong> {{ student.percentage }}%</div>
+        <div class="info-item"><strong>City:</strong> {{ student.city }}</div>
+        <div class="info-item"><strong>Lead Stage:</strong> {{ student.lead_stage.value }}</div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>My Scholarships & Offers</h2>
+        <p class="placeholder-text">
+            This section will show scholarships and offers you are eligible for or have expressed interest in.
+            <br><em>(Feature under development)</em>
+        </p>
+        {# Example: Iterate over student.applied_offers or student.eligible_scholarships #}
+        {#
+        {% if student.class_selected == '10' %}
+            <p>View your <a href="{{ url_for('show_class10_offers', student_id=student.id) }}">Class 10th Offers Page</a>.</p>
+        {% elif student.class_selected == '12' %}
+            <p>View your <a href="{{ url_for('show_class12_scholarships', student_id=student.id) }}">Class 12th Scholarships Page</a>.</p>
+        {% endif %}
+        #}
+    </div>
+
+    <div class="dashboard-section">
+        <h2>My Referrals</h2>
+        <div class="info-item">
+            <strong>Your Unique Referral Link:</strong><br>
+            <span class="referral-link-display">{{ url_for('homepage', ref=student.referral_code, _external=True) }}</span>
+        </div>
+        <div class="info-item">
+            <strong>People Joined Using Your Link:</strong>
+            <span id="referral-count">{{ student.referred_students | length }}</span>
+            {# This uses the backref from Student model #}
+        </div>
+        <div class="info-item">
+            <strong>Gift Cards Earned:</strong>
+            <span class="placeholder-text">₹{{ (student.referred_students | length) * 150 }} (Calculation placeholder)</span>
+        </div>
+        <p class="placeholder-text">Detailed referral tracking and gift card issuance information will be available here soon. <em>(Feature under development)</em></p>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('student_logout') }}" class="btn btn-primary" style="background-color: #dc3545; border-color: #dc3545;">Logout</a>
+    </div>
+</div>
+{% endblock %}

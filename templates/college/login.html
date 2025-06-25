@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}College Portal Login{% endblock %}
+
+{% block content %}
+<div class="college-login-container">
+    <h2>College Portal Login</h2>
+    <p>Access your dashboard to manage leads, courses, and scholarships.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('college_login_attempt') }}" class="lead-form">
+        <div class="form-group">
+            <label for="email">Enter Your Registered College Email</label>
+            <input type="email" id="email" name="contact_email" required>
+        </div>
+        {# Add password field later #}
+        <button type="submit" class="btn btn-primary">Access Dashboard</button>
+    </form>
+    <p class="info-text">
+        Ensure your college registration has been approved by the admin.
+        <br>New colleges? <a href="{{ url_for('college_register_attempt') }}">Register here</a>.
+    </p>
+</div>
+{% endblock %}
+
+{% block head_extra %}
+<style>
+.college-login-container { /* Similar to student login */
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    text-align: center;
+}
+.info-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 20px;
+}
+</style>
+{% endblock %}

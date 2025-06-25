@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}College Dashboard - {{ college.name }}{% endblock %}
+
+{% block head_extra %}
+<style>
+.dashboard-container { /* Reusing student dashboard styles where applicable */
+    padding: 20px;
+}
+.dashboard-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+.dashboard-section {
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.dashboard-section h2 {
+    color: #5a67d8;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+.placeholder-text {
+    color: #777;
+    font-style: italic;
+}
+.action-links a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #007bff;
+}
+.action-links a:hover {
+    text-decoration: underline;
+}
+.lead-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top:15px;
+}
+.lead-table th, .lead-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.lead-table th {
+    background-color: #f2f2f2;
+}
+.masked-detail {
+    color: #aaa;
+    font-style: italic;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>{{ college.name }} - College Dashboard</h1>
+        <p>Manage your institution's presence and connect with students.</p>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Student Leads</h2>
+        {% if leads %}
+            <p>Showing {{ leads | length }} new leads. Full details accessible after fee payment (feature pending).</p>
+            <table class="lead-table">
+                <thead>
+                    <tr>
+                        <th>Name (Masked)</th>
+                        <th>Email (Masked)</th>
+                        <th>Class</th>
+                        <th>Percentage</th>
+                        <th>City</th>
+                        <th>Stage</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in leads %}
+                    <tr>
+                        <td>{{ lead.name[0] }}***{{ lead.name[-1] }}</td>
+                        <td>{{ lead.email.split('@')[0][:2] }}***@{{ lead.email.split('@')[1] }}</td>
+                        <td>{{ lead.class_selected }}th</td>
+                        <td>{{ lead.percentage }}%</td>
+                        <td>{{ lead.city }}</td>
+                        <td>{{ lead.lead_stage.value }}</td>
+                        <td><a href="#">View (Pay to Unlock)</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <a href="#" class="btn btn-primary">Download Leads (CSV - Feature Pending)</a>
+        {% else %}
+            <p class="placeholder-text">No new student leads matching your institution's focus at the moment. Check back later!</p>
+        {% endif %}
+        <p class="placeholder-text" style="margin-top:10px;">Lead filtering and detailed view with payment options are under development.</p>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Manage Your Institution</h2>
+        <div class="action-links">
+            <a href="#">Manage Courses (CRUD - Feature Pending)</a>
+            <a href="#">Manage Scholarships (CRUD - Feature Pending)</a>
+            <a href="#">Update College Profile (Feature Pending)</a>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('college_logout') }}" class="btn btn-primary" style="background-color: #dc3545; border-color: #dc3545;">Logout</a>
+    </div>
+
+</div>
+{% endblock %}
